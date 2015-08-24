@@ -1,6 +1,7 @@
 package com.verizon.cfo.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,32 +28,36 @@ public class DataServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url= " ";
+		String url= "http://www.json-generator.com/api/json/get/cqQMjDMYKq?indent=2 ";
 		BillDetails bd = new BillDetails();
 		JsonReader jr = new JsonReader();
+		JSONObject json=null;
 		try {
-			JSONObject json = jr.readJsonFromUrl(url);
+		   json = jr.readJsonFromUrl(url);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		PrintWriter out = response.getWriter();
+		out.println(json.toString());
 		
 		
-		long accNo = bd.getAccNo();
-		String billCycleDate = bd.getBillCycleDate();
-		double billedAmount = bd.getBilledAmount();
-		double amountReceived = bd.getAmountReceived();
-		String paymentDate = bd.getPaymentDate();
-		ConnectionDao cd = new ConnectionDao();
-		if(cd.checkAccNo(bd.getAccNo())){
-			cd.updateData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
-			
-		}
-		else{
-			cd.insertData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
-		}
 		
+//		long accNo = bd.getAccNo();
+//		String billCycleDate = bd.getBillCycleDate();
+//		double billedAmount = bd.getBilledAmount();
+//		double amountReceived = bd.getAmountReceived();
+//		String paymentDate = bd.getPaymentDate();
+//		ConnectionDao cd = new ConnectionDao();
+//		if(cd.checkAccNo(bd.getAccNo())){
+//			cd.updateData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
+//			
+//		}
+//		else{
+//			cd.insertData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
+//		}
+//		
 		
 	}
 
