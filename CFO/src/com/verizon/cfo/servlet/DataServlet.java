@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.verizon.cfo.connection.BillDetails;
 import com.verizon.cfo.connection.ConnectionDao;
 
@@ -24,7 +27,18 @@ public class DataServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url= " ";
 		BillDetails bd = new BillDetails();
+		JsonReader jr = new JsonReader();
+		try {
+			JSONObject json = jr.readJsonFromUrl(url);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		long accNo = bd.getAccNo();
 		String billCycleDate = bd.getBillCycleDate();
 		double billedAmount = bd.getBilledAmount();
@@ -38,6 +52,7 @@ public class DataServlet extends HttpServlet {
 		else{
 			cd.insertData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
 		}
+		
 		
 	}
 
