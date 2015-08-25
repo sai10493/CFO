@@ -14,7 +14,8 @@ public class ConnectionDao {
 	PreparedStatement ps;
 	public void insertData(long accNo, String billCycleDate,double billedAmount,double amountReceived, String paymentDate ){
 		try {
-			con=ConnectionUtil.getConnection();;
+			con=ConnectionUtil.getConnection();
+			System.out.println("Connection established");
 			Date bcd = new SimpleDateFormat("dd-MMM-yyyy").parse(billCycleDate);
 			Date pd = new SimpleDateFormat("dd-MMM-yyyy").parse(paymentDate);
 			ps = con.prepareStatement("insert into billreceived values(?,?,?,?,?)");
@@ -23,6 +24,7 @@ public class ConnectionDao {
 			ps.setDouble(3, billedAmount);
 			ps.setDouble(4, amountReceived);
 			ps.setDate(5, new java.sql.Date(pd.getTime()));
+			ps.executeUpdate();
 			ps.close();
 			
 		} catch (SQLException e) {
@@ -32,7 +34,6 @@ public class ConnectionDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		finally{ConnectionUtil.closeConnection();}
 	}
 	
 	
@@ -49,6 +50,7 @@ public class ConnectionDao {
 		ps.setDouble(3, amountReceived);
 		ps.setDate(4, new java.sql.Date(pd.getTime()));
 		ps.setLong(5, accNo);
+		ps.executeUpdate();
 		ps.close();
 		
 	} catch (SQLException e) {
@@ -58,7 +60,6 @@ public class ConnectionDao {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	finally{ConnectionUtil.closeConnection();}
 	}
 	
 	
@@ -66,7 +67,7 @@ public class ConnectionDao {
 	public boolean checkAccNo(long accNo){
 		try {
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("select * from billreceived where accno=?");
+			ps = con.prepareStatement("select * from billreceived where account_number=?");
 			ps.setLong(1, accNo);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
@@ -76,7 +77,6 @@ public class ConnectionDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		finally{ConnectionUtil.closeConnection();}
 		return false;
 		
 	}
