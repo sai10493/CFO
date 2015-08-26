@@ -27,7 +27,6 @@ public class ConnectionDao {
 			ps.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
@@ -47,7 +46,6 @@ public class ConnectionDao {
 		ps.close();
 		
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	 }
     }
@@ -66,10 +64,10 @@ public class ConnectionDao {
 		int daysElapsed = (int) (((currDate.getTime() - billCycleDate.getTime()) / (24 * 60 * 1000 * 60))-15);
 		
 		String operation = classification(accNo,billedAmount,amountReceived,daysElapsed);
-		//System.out.println(operation);
+		
 		switch (operation) { 
 		case "delete": { 
-			//System.out.println("Into Delete");
+			
 			String delQuery = "delete from dlqtable where account_number = ?";
 			ps = con.prepareStatement(delQuery);
 			ps.setLong(1, accNo);
@@ -79,7 +77,6 @@ public class ConnectionDao {
 			break;
 			
 		case "insert": {
-			//System.out.println("Inserting data into dlqtable.");
 
 			stage = status(daysElapsed);
 
@@ -103,15 +100,12 @@ public class ConnectionDao {
 
 		case "update": {
 
-			//System.out.println("into update");
-
 			ps = con.prepareStatement("select p2p_Days from dlqtable where account_number = ?");
 			ps.setLong(1, accNo);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			p2pDays = rs.getInt("p2p_days");
 
-			//System.out.println("P2P days: " + p2pDays);
 			ps.close();
 			
 			

@@ -42,7 +42,7 @@ public class DataServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url= "http://www.json-generator.com/api/json/get/bGCZSRnZDS?indent=2";             
+		String url= "http://www.json-generator.com/api/json/get/ckzeODIWBe?indent=2";             
 		JSONObject jsonObj=null;
 		JsonReader jr = new JsonReader();
 		JSONArray jsonArr;
