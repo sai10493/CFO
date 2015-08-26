@@ -28,9 +28,6 @@ public class AddP2P extends HttpServlet {
         super();
     }
 
-    
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		con=ConnectionUtil.getConnection();
