@@ -31,14 +31,19 @@ try
 {
 	Connection con = ConnectionUtil.getConnection();
     System.out.println("Connection established");
+    
+    
 
 //Statement for getting the list of customers for whom a letter should be sent
-Statement st=con.createStatement();
-ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.streetname,f.zipcode,f.city,"
-                               +"f.state,f.country,f.contactnumber,"
-                              +"(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
-                              +"d.due_amount,d.status,d.flag"
-                              +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid");
+//Statement st=con.createStatement();
+PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f.lastname,f.streetname,f.zipcode,f.city,"
+                                           +"f.state,f.country,f.contactnumber,"
+                                           +"(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
+                                           +"d.due_amount,d.status,d.flag from dlqtable d, fincustomerdata f"
+                                           +" WHERE d.account_number= f.customerid and d.account_number=?");
+		ps.setString(1,request.getParameter("search"));
+		
+		ResultSet rs=ps.executeQuery();
 %>
 
 <!-- Table to store the result fetched -->
@@ -61,7 +66,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<tr>
 
 <% while(rs.next()) //loop through theresult
-{%>
+{ %>
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
 	<td><%= rs.getString(3) %></td>
@@ -83,6 +88,28 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	</form>
 	</td>
 	</tr>
+	<%}%>
+	</table>
+	<br/>
+	<br/>
+	<table border=2 class="TFtable" align="center">
+	<tr>
+	<th>Action Date</th>
+	<th>Action Type</th>
+	<th>Description</th>
+	</tr>
+	<% ps=con.prepareStatement("select * from action_taken where account_number=?");
+	   ps.setString(1,request.getParameter("search"));
+	   rs=ps.executeQuery();
+	   
+	  while(rs.next()) //loop through theresult
+	   { %>
+	   <tr>
+	   	<td><%= rs.getDate(3) %></td>
+	   	<td><%= rs.getString(4) %></td>
+	   	<td><%= rs.getString(5) %></td>
+	   </tr>
+	
 <%}
 } catch (SQLException e) {
 	// TODO Auto-generated catch block

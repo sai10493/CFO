@@ -10,6 +10,21 @@
     <link href="cssColl/style.css" rel="stylesheet">    
     <link href="cssColl/MenuFlyoutCss.css" rel="stylesheet">
     <link href="cssColl/table.css" rel="stylesheet">
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+    <script>
+    function RefreshCall()
+    {
+    	<!--$.ajax({
+			url:'DataServlet',
+			success:function(responseText){
+				$("#AjaxResponse").html(responseText);
+					}
+			});-->
+			alert("called");
+    }
+    </script>
   </head>
 
   <body>
@@ -36,13 +51,13 @@
             <div id='SearchWrapper'>
               <form>
                 <div class="col-xs-12 col-md-4">
-                  <input type="button" id="collRefresh" value="Refresh" class="button" style="width: 100%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" id="collRefresh" value="Refresh" class="button" onclick="RefreshCall()"style="width: 100%; margin: 10px; margin-left:0px;"/>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                  <input type="button" id="collUpdateDel" value="Update Delinquent Customers" class="button" style="width: 100%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" id="collUpdateDel" value="Update Delinquent Customers" class="button" onclick="RefreshCall()"style="width: 100%; margin: 10px; margin-left:0px;"/>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                  <input type="button" id="collSendOM" value="Send to OM" class="button" style="width: 100%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" id="collSendOM" value="Send to OM" class="button" onclick="RefreshCall()"style="width: 100%; margin: 10px; margin-left:0px;"/>
                 </div>
                 
                 
@@ -51,13 +66,7 @@
           </div>
 
           <div id='content' style="top:200px">
-            Table here
-            <table class="TFtable">
-              <tr><th>Text</th><th>Text</th><th>Text</th></tr>
-              <tr><td>Text</td><td>Text</td><td>Text</td></tr>
-              <tr><td>Text</td><td>Text</td><td>Text</td></tr>
-              <tr><td>Text</td><td>Text</td><td>Text</td></tr>
-            </table>
+            <div id="AjaxResponse"></div>
           </div>
 
         </div>

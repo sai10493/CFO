@@ -58,11 +58,12 @@ public class MakeCall extends HttpServlet {
 			java.sql.Date date = new java.sql.Date(utilDate.getTime());
 			
 			
-			PreparedStatement ps1=con.prepareStatement("INSERT INTO action_taken VALUES(?,?,?,?)");
+			PreparedStatement ps1=con.prepareStatement("INSERT INTO action_taken VALUES(?,?,?,?,?)");
 			ps1.setString(1, accNo);
 			ps1.setInt(2, status);
 			ps1.setDate(3, date);
 			ps1.setString(4, "Call");
+			ps1.setString(5,"Called customer ");
 			
 			ResultSet rs1=ps1.executeQuery();
 			

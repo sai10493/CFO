@@ -35,34 +35,46 @@ try
 
 //Statement for getting the list of customers for whom a call should be made
 Statement st=con.createStatement();
-ResultSet rs=st.executeQuery("SELECT * FROM Dlqtable where status = 1 or status = 4 or status = 11 or status=25");
+ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
+        +"d.due_amount,d.status,d.flag,d.p2p_days,f.contactnumber, d.p2p_count"
+        +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid");
 %>
 
 <!-- Table creation to store the list fetched -->
 <table class="TFtable" border=1>
 <tr><th>Account Number</th>
+	<th>First Name</th>
+	<th>Last Name</th>
+	<th>Due Date</th>
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
 	<th>Flag</th>
-	<th>Promise days</th>
+	<th>Promise Days</th>
+	<th>Phone number</th>
 	<th>Action</th>
 	<th>p2p Submit</th></tr>
 	<tr>
 	
 
 <% while(rs.next())
-{int p2pCount=rs.getInt(7);%>
+{int p2pCount=rs.getInt(11);%>
 	<td><%= rs.getInt(1) %></td>
-	<td><%= rs.getInt(2) %></td>
-	<td><%= rs.getInt(3) %></td>
-	<td><%= rs.getInt(4) %></td>
+	<td><%= rs.getString(2) %></td>
+	<td><%= rs.getString(3) %></td>
+	<td><%= rs.getDate(4) %></td>
 	<td><%= rs.getInt(5) %></td>
-	<td><%= rs.getString(6) %></td>
+	<td><%= rs.getInt(6) %></td>
+	<td><%= rs.getInt(7) %></td>
+	<td><%= rs.getInt(8) %></td>
+	<td><%= rs.getInt(9) %></td>
+	<td><%= rs.getLong(10) %></td>
+
 	<td>
 	<form id="formsub" action="MakeCall" method="get">
+	<input type="text"/>
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="submit" value="Make Call"/>
+	<center><input type="submit" value="Make Call"/></center>
 	</form>
 	</td>
 	<%if(p2pCount<2){ %>
@@ -70,7 +82,7 @@ ResultSet rs=st.executeQuery("SELECT * FROM Dlqtable where status = 1 or status 
 	<form id="form2" action="AddP2P" method="get">
 	<input type="text" name="p2p">
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="submit" value="Add P2P"/>
+	<center><input type="submit" value="Add P2P"/></center>
 	</form></td><%}
 	else
 		{

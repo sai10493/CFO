@@ -1,10 +1,12 @@
 package com.verizon.cfo.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 
 
@@ -69,6 +71,7 @@ public class DataServlet extends HttpServlet {
 					cd.insertData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
 				}
 			   cd.updateDlqTable(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
+			   System.out.println("Hello");
 		   }
 		} catch (JSONException | ParseException | SQLException e) {
 			// TODO Auto-generated catch block

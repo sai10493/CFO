@@ -33,6 +33,21 @@ $(window).on('popstate', function() {
     $('a[href=' + anchor + ']').tab('show');
 });
 </script>
+<script>
+function Click() {  <!--This Click() is called to display the list of delinquent customers -->
+$(document).ready(function() {
+	$.ajax({
+		url : 'SearchPage.jsp',
+		data:{search:$('#search').val()},
+		success : function(responseText) {
+			$('#ajaxGetUserServletResponse').html(responseText); <!--gets the information from ShowServlet -->
+
+		}
+	});
+
+});
+}
+</script>
 </head>
 <body>
 
@@ -63,7 +78,13 @@ $(window).on('popstate', function() {
 			<!-- Start of Tab1 -->
 			<div id="home" class="tab-pane fade in active">
 				<h3>HOME</h3>
-				<p>This page contains the list of defaulters</p>
+				
+				<form action="">
+				<center>Enter Account number<input type="text" id="search"/>
+				<input type="button" value="search" onclick="Click()"/></center>
+				</form>
+				<div id="ajaxGetUserServletResponse"></div>
+				
 			</div>
 			<!-- End of Tab1 -->
 
