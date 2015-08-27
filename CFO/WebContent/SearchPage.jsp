@@ -80,11 +80,6 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	<td><%= rs.getFloat(12) %></td>
 	<td><%= rs.getString(13) %></td>
 	<td><%= rs.getInt(14) %></td>
-	<td>		
-	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->
-	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	</form>
-	</td>
 	</tr>
 	<%}%>
 	</table>
@@ -114,5 +109,13 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	e.printStackTrace();
 }%>
 </table>
+<br/>
+<br/>
+<br/>
+<form id="form2" action="AddP2PHome" method="get">
+	<center><input type="text" name="p2p">
+	<input type="hidden" id="accountNumber" name="accountNumber" value="<%=request.getParameter("search")%>"/>
+	<input type="submit" value="Add P2P"/></center>
+</form>
 </body>
 </html>

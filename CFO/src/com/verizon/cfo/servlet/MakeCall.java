@@ -23,23 +23,19 @@ public class MakeCall extends HttpServlet {
 
 	Connection con;
 	String status;
+	String message;
 	
     public MakeCall() {
         super();
     }
     
-    
-
-
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		con = ConnectionUtil.getConnection();
 		response.setContentType("text/html");
 		
 		String accNo=request.getParameter("accountNumber");
-		
+		message=request.getParameter("description");
 		try {
 			PreparedStatement ps=con.prepareStatement("SELECT * FROM dlqtable WHERE ACCOUNT_NUMBER=? ");
 			ps.setString(1, accNo);
@@ -63,7 +59,7 @@ public class MakeCall extends HttpServlet {
 			ps1.setString(2, status);
 			ps1.setDate(3, date);
 			ps1.setString(4, "Call");
-			ps1.setString(5,"Called customer ");
+			ps1.setString(5,""+message);
 			
 			ResultSet rs1=ps1.executeQuery();
 			

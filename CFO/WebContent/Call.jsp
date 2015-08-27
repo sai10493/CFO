@@ -72,7 +72,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 
 	<td>
 	<form id="formsub" action="MakeCall" method="get">
-	<input type="text"/>
+	<input type="text" name="description"/>
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<center><input type="submit" value="Make Call"/></center>
 	</form>

@@ -25,9 +25,9 @@ th, td {
 function Call()
 {
 $(function(){
-	$(document).on("click","#mail",function(){
+	$(document).on("click","#check",function(){
 		alert(this.name);
-		window.open('ViewMail.jsp'+'#'+this.name);
+		window.open('ViewMail.jsp'+'?accountnumber='+this.name);
 	});
 });
 }
@@ -48,7 +48,7 @@ try
 //Statement for getting the list of customers for whom an emailshould be sent
 Statement st=con.createStatement();
 ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
-		                      +"d.due_amount,d.status,d.flag,d.p2p_days,f.email"
+		                      +"d.due_amount,d.status,d.flag,d.p2p_days,f.email,d.email_count"
 		                      +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid and"
 		                      +" (d.days_elapsed=7 or d.days_elapsed=18)");
 %>
@@ -58,19 +58,20 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 <tr><th>Account Number</th>
 	<th>First Name</th>
 	<th>Last Name</th>
-	<th>Due Date</th>
+	<th width="10%">Due Date</th>
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
 	<th>Flag</th>
 	<th>Promise Days</th>
 	<th>Email Id</th>
-	<th>Action</th></tr>
+	<th width="15%">Action</th></tr>
 	<tr>
 
 <% while(rs.next()) //loop through theresult
 { 
-	int emailCount=rs.getInt(8);%>
+	int emailCount=rs.getInt(11);
+	int daysElapsed=rs.getInt(5);%>
 	
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
@@ -82,25 +83,50 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td><%= rs.getInt(8) %></td>
 	<td><%= rs.getInt(9) %></td>
 	<td><%= rs.getString(10) %></td>
-	<%if(emailCount==0) {%>
+	<!-- Column Condition -->
+	<%if(emailCount==0 && daysElapsed==7 ) {%>
 	<td>		
 	<form id="formsub" action="SendEmail" method="get"> <!-- form to take the accountNumber to the servlet -->
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<input type="submit" value="Send Mail"/>
-	</form>
-	</td>
-	<% } 
-	else {%>
-	
-	<td>
-	<form id="formsub2" action="DisplayMail.jsp">
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="button" value="View Mail" id="mail" name="<%=rs.getInt(1) %>" onclick="Call()"/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Mail" onclick="Call()" disabled/>
 	</form>
 	</td>
-	<% } %>
+	</tr>
+	<% } else if(emailCount==1 && daysElapsed==7) {%>
+	<td>		
+	<form id="formsub" action="SendEmail" method="get"> <!-- form to take the accountNumber to the servlet -->
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="submit" value="Send Mail" disabled/>
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Mail" onclick="Call()"/>
+	</form>
+	</td>
+	</tr>
+	<%} else if(emailCount==1 && daysElapsed==18) {%>
+	<td>		
+	<form id="formsub" action="SendEmail" method="get"> <!-- form to take the accountNumber to the servlet -->
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="submit" value="Send Mail"/>
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Mail" onclick="Call()"/>
+	</form>
+	</td>
+	</tr>
+	<%} else if(emailCount==2 && daysElapsed==18){%>
+	<td>		
+	<form id="formsub" action="SendEmail" method="get"> <!-- form to take the accountNumber to the servlet -->
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="submit" value="Send Mail" disabled/>
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="button" value="View Mail" name="<%=rs.getInt(1) %>" id="check" onclick="Call()"/>
+	</form>
+	</td>
 	</tr>
 	<% }
+	
+	}
 } catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();

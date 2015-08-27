@@ -32,24 +32,11 @@ public class DataServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	
-	@Override
-	public void destroy() {
-		ConnectionUtil.closeConnection();
-		System.out.println("Connection closed");
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url= "http://www.json-generator.com/api/json/get/ckzeODIWBe?indent=2";             
 		JSONObject jsonObj=null;
 		JsonReader jr = new JsonReader();
 		JSONArray jsonArr;
 		ConnectionDao cd = new ConnectionDao();
-		
 		try {
 		   jsonObj = jr.readJsonFromUrl(url);
 		   jsonArr = jsonObj.getJSONArray("finance");
@@ -61,7 +48,10 @@ public class DataServlet extends HttpServlet {
 			   String pd = jsonArr.getJSONObject(i).getString("paymentDate");
 			   
 			   Date billCycleDate = new SimpleDateFormat("dd-MMM-yyyy").parse(bcd);
-			   Date paymentDate = new SimpleDateFormat("dd-MMM-yyyy").parse(pd);	      
+			   Date paymentDate = new SimpleDateFormat("dd-MMM-yyyy").parse(pd);
+			  
+			   
+			   
 			   	
 			   if(cd.checkAccNo(accNo)){
 					cd.updateData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
@@ -72,11 +62,29 @@ public class DataServlet extends HttpServlet {
 				}
 			   cd.updateDlqTable(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
 		   }
+		   response.setContentType("text/html");
+		   PrintWriter out = response.getWriter();
+		  
+		   out.println("Billing details updated");
+		   
 		} catch (JSONException | ParseException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//response.sendRedirect("http://localhost:8080/CFO/CollectionsHome.html");
+	
+	}
+
+	
+	@Override
+	public void destroy() {
+		ConnectionUtil.closeConnection();
+		System.out.println("Connection closed");
 		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
 	}
 
 }
