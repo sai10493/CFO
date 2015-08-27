@@ -11,6 +11,8 @@ import java.util.Date;
 
 public class ConnectionDao {
 	Connection con;
+	int r=0;
+	boolean s,st;
 	PreparedStatement ps;
 	public void insertData(long accNo, Date billCycleDate,double billedAmount,double amountReceived, Date paymentDate ){
 		try {
@@ -23,7 +25,7 @@ public class ConnectionDao {
 			ps.setDouble(3, billedAmount);
 			ps.setDouble(4, amountReceived);
 			ps.setDate(5, new java.sql.Date(paymentDate.getTime()));
-			ps.executeUpdate();
+			r =ps.executeUpdate();
 			ps.close();
 			
 		} catch (SQLException e) {
@@ -42,7 +44,7 @@ public class ConnectionDao {
 		ps.setDouble(3, amountReceived);
 		ps.setDate(4, new java.sql.Date(paymentDate.getTime()));
 		ps.setLong(5, accNo);
-		ps.executeUpdate();
+		r = ps.executeUpdate();
 		ps.close();
 		
 	} catch (SQLException e) {
@@ -72,7 +74,7 @@ public class ConnectionDao {
 			String delQuery = "delete from dlqtable where account_number = ?";
 			ps = con.prepareStatement(delQuery);
 			ps.setLong(1, accNo);
-			ps.execute();
+			s = ps.execute();
 			ps.close();
 		}
 			break;
@@ -93,7 +95,7 @@ public class ConnectionDao {
 			ps.setDouble(3, (billedAmount - amountReceived));
 			ps.setString(4, stage);
 			ps.setInt(5, flag);
-			ps.execute();
+			s = ps.execute();
 			ps.close();
 
 		}
@@ -126,7 +128,7 @@ public class ConnectionDao {
 				ps.setString(3, stage);
 				ps.setInt(4, flag);
 				ps.setLong(5, accNo);
-				ps.execute();
+				s = ps.execute();
 				ps.close();
 
 			} else {
@@ -139,7 +141,7 @@ public class ConnectionDao {
 
 				ps.setInt(3, flag);
 				ps.setLong(4, accNo);
-				ps.execute();
+				s = ps.execute();
 				ps.close();
 
 			}
@@ -160,7 +162,7 @@ public class ConnectionDao {
 			PreparedStatement ps = con.prepareStatement(query);
 			ps.setLong(1, accno);
 			ResultSet rs = ps.executeQuery();
-			boolean st=rs.next();
+			st=rs.next();
 			if (st == false && (billedAmount - amountReceived) != 0 && (daysElapsed>0)) {
 				operation="insert";
 			} else if (st == true && (billedAmount - amountReceived) == 0) {
@@ -208,6 +210,7 @@ public class ConnectionDao {
 			ps = con.prepareStatement("select * from billreceived where account_number=?");
 			ps.setLong(1, accNo);
 			ResultSet rs = ps.executeQuery();
+			s = rs.next();
 			if(rs.next()){
 				return true;
 			}
@@ -225,7 +228,7 @@ public class ConnectionDao {
 			con=ConnectionUtil.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("Select * from billreceived");
-		
+		    s = rs.next();
 			while(rs.next()){
 				
 			}
