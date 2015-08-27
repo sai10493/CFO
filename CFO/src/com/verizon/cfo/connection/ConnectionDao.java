@@ -56,7 +56,8 @@ public class ConnectionDao {
 		
 		con=ConnectionUtil.getConnection();
 		PreparedStatement ps;
-		int p2pDays =0, stage;
+		int p2pDays =0;
+		String stage="";
 		
 		String sysDate = new SimpleDateFormat("dd/MMM/YYYY").format(new Date());
 		Date currDate = new SimpleDateFormat("dd/MMM/yyyy").parse(sysDate);
@@ -90,7 +91,7 @@ public class ConnectionDao {
 			ps.setLong(1, accNo);
 			ps.setLong(2, daysElapsed);
 			ps.setDouble(3, (billedAmount - amountReceived));
-			ps.setInt(4, stage);
+			ps.setString(4, stage);
 			ps.setInt(5, flag);
 			ps.execute();
 			ps.close();
@@ -122,7 +123,7 @@ public class ConnectionDao {
 
 				ps.setLong(1, daysElapsed);
 				ps.setDouble(2, (billedAmount - amountReceived));
-				ps.setInt(3, stage);
+				ps.setString(3, stage);
 				ps.setInt(4, flag);
 				ps.setLong(5, accNo);
 				ps.execute();
@@ -176,26 +177,26 @@ public class ConnectionDao {
 		return operation;
 	}
 	
-	public int status(int daysElapsed) { 
-		int stage = 0; 
+	public String status(int daysElapsed) { 
+		String stage = ""; 
 		if (daysElapsed >= 1 && daysElapsed <= 3) {
-			stage = 1;
+			stage = "Reminder call";
 		} else if (daysElapsed >= 4 && daysElapsed <= 6) {
-			stage = 4;
+			stage = "Reminder call";
 		} else if (daysElapsed >= 7 && daysElapsed <= 10) {
-			stage = 7;
+			stage = "Send email";
 		} else if (daysElapsed >= 11 && daysElapsed <= 17) {
-			stage = 11;
+			stage = "Reminder call";
 		} else if (daysElapsed >= 18 && daysElapsed <= 20) {
-			stage = 18;
+			stage = "Send email";
 		} else if (daysElapsed == 21) {
-			stage = 21;
+			stage = "Send letter";
 		} else if (daysElapsed >= 22 && daysElapsed <= 24) {
-			stage = 22;
+			stage = "Send to next level for review";
 		} else if (daysElapsed >= 25 && daysElapsed <= 29) {
-			stage = 25;
+			stage = "Reminder call";
 		} else if (daysElapsed == 30) {
-			stage = 30;
+			stage = "Disconnect";
 		}
 
 		return stage;

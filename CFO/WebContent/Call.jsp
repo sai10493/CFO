@@ -37,7 +37,7 @@ try
 Statement st=con.createStatement();
 ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
         +"d.due_amount,d.status,d.flag,d.p2p_days,f.contactnumber, d.p2p_count"
-        +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid");
+        +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid and (d.days_elapsed=1 or d.days_elapsed=4 or d.days_elapsed=11 or d.days_elapsed=25) ");
 %>
 
 <!-- Table creation to store the list fetched -->
@@ -65,9 +65,9 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td><%= rs.getDate(4) %></td>
 	<td><%= rs.getInt(5) %></td>
 	<td><%= rs.getInt(6) %></td>
-	<td><%= rs.getInt(7) %></td>
+	<td><%= rs.getString(7) %></td>
 	<td><%= rs.getInt(8) %></td>
-	<td><%= rs.getInt(9) %></td>
+	<td><%= (rs.getInt(9)-rs.getInt(5)) %></td>
 	<td><%= rs.getLong(10) %></td>
 
 	<td>

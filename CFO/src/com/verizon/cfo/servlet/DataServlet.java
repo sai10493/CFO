@@ -71,7 +71,6 @@ public class DataServlet extends HttpServlet {
 					cd.insertData(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
 				}
 			   cd.updateDlqTable(accNo, billCycleDate, billedAmount, amountReceived, paymentDate);
-			   System.out.println("Hello");
 		   }
 		} catch (JSONException | ParseException | SQLException e) {
 			// TODO Auto-generated catch block

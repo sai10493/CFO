@@ -24,8 +24,12 @@ th, td {
 <script>
 function Call()
 {
-var x=$(accountNumber).val();
-window.op
+$(function(){
+	$(document).on("click","#mail",function(){
+		alert(this.name);
+		window.open('ViewMail.jsp'+'#'+this.name);
+	});
+});
 }
 </script>
 </head>
@@ -45,7 +49,8 @@ try
 Statement st=con.createStatement();
 ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
 		                      +"d.due_amount,d.status,d.flag,d.p2p_days,f.email"
-		                      +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid");
+		                      +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid and"
+		                      +" (d.days_elapsed=7 or d.days_elapsed=18)");
 %>
 
 <!-- Table to store the result fetched -->
@@ -73,7 +78,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td><%= rs.getDate(4) %></td>
 	<td><%= rs.getInt(5) %></td>
 	<td><%= rs.getInt(6) %></td>
-	<td><%= rs.getInt(7) %></td>
+	<td><%= rs.getString(7) %></td>
 	<td><%= rs.getInt(8) %></td>
 	<td><%= rs.getInt(9) %></td>
 	<td><%= rs.getString(10) %></td>
@@ -90,7 +95,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td>
 	<form id="formsub2" action="DisplayMail.jsp">
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="button" value="View Mail" onclick="Call()"/>
+	<input type="button" value="View Mail" id="mail" name="<%=rs.getInt(1) %>" onclick="Call()"/>
 	</form>
 	</td>
 	<% } %>

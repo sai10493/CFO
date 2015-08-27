@@ -21,7 +21,6 @@ public class AddP2P extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	Connection con;
-	int status;
 	int p2pCount;
 	
     public AddP2P() {
@@ -34,11 +33,13 @@ public class AddP2P extends HttpServlet {
 		response.setContentType("text/html");
 		
 		String accNo=request.getParameter("accountNumber");
-		String p2pDays=request.getParameter("p2p");
+		int p2pDays=Integer.parseInt(request.getParameter("p2p"));
+		int daysElapsed=0;
+		
 		
 		try {
 			
-			PreparedStatement p=con.prepareStatement("SELECT p2p_count FROM dlqtable WHERE account_number=?");
+			PreparedStatement p=con.prepareStatement("SELECT p2p_count, days_elapsed FROM dlqtable WHERE account_number=?");
 			p.setString(1, accNo);
 			
 			
@@ -47,12 +48,14 @@ public class AddP2P extends HttpServlet {
 			while(r.next())
 			{
 			p2pCount=r.getInt(1);
+			daysElapsed = r.getInt(2);
 			//System.out.println(p2pCount);
 			p2pCount++;
 			}
 			
 			PreparedStatement ps=con.prepareStatement("UPDATE dlqtable SET p2p_days=?,p2p_count=? WHERE account_number=?");
-			ps.setString(1, p2pDays);
+			p2pDays = p2pDays+daysElapsed;
+			ps.setInt(1, p2pDays);
 			ps.setInt(2, p2pCount);
 			ps.setString(3, accNo);
 			

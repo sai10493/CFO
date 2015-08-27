@@ -22,7 +22,7 @@ public class MakeCall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	Connection con;
-	int status;
+	String status;
 	
     public MakeCall() {
         super();
@@ -47,7 +47,7 @@ public class MakeCall extends HttpServlet {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				status=rs.getInt(4);
+				status=rs.getString(4);
 			}
 			
 			ps.close();
@@ -60,7 +60,7 @@ public class MakeCall extends HttpServlet {
 			
 			PreparedStatement ps1=con.prepareStatement("INSERT INTO action_taken VALUES(?,?,?,?,?)");
 			ps1.setString(1, accNo);
-			ps1.setInt(2, status);
+			ps1.setString(2, status);
 			ps1.setDate(3, date);
 			ps1.setString(4, "Call");
 			ps1.setString(5,"Called customer ");

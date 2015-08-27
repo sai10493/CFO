@@ -38,7 +38,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
                                +"f.state,f.country,f.contactnumber,"
                               +"(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
                               +"d.due_amount,d.status,d.flag"
-                              +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid");
+                              +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid and d.days_elapsed=21 ");
 %>
 
 <!-- Table to store the result fetched -->
@@ -74,7 +74,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<td><%= rs.getDate(10) %></td>
 	<td><%= rs.getInt(11) %></td>
 	<td><%= rs.getFloat(12) %></td>
-	<td><%= rs.getInt(13) %></td>
+	<td><%= rs.getString(13) %></td>
 	<td><%= rs.getInt(14) %></td>
 	<td>		
 	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->

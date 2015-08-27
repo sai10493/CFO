@@ -61,8 +61,7 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
-	<th>Flag</th>
-	<th>Action</th></tr>
+	<th>Live</th></tr>
 	<tr>
 
 <% while(rs.next()) //loop through theresult
@@ -79,12 +78,11 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	<td><%= rs.getDate(10) %></td>
 	<td><%= rs.getInt(11) %></td>
 	<td><%= rs.getFloat(12) %></td>
-	<td><%= rs.getInt(13) %></td>
+	<td><%= rs.getString(13) %></td>
 	<td><%= rs.getInt(14) %></td>
 	<td>		
 	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="submit" value="Send Letter"/>
 	</form>
 	</td>
 	</tr>
