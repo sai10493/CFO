@@ -20,17 +20,41 @@
 			url:'DataServlet',
 			success:
 				 function(responseText) {
-				$("#AjaxResponseEmail").html(responseText);
+				$("#AjaxResponse").html(responseText);
 					}
 			});		
 				
 			
     }
     
-    function Call1()
+    function CallBill()
+    {
+    	$.ajax({
+			url:'CallBill.jsp',
+			success:function(responseText){
+				$("#AjaxResponse").html(responseText);
+					}
+			});		
+				
+			
+    }
+    
+    function CallDlq()
     {
     	$.ajax({
 			url:'DlqList.jsp',
+			success:function(responseText){
+				$("#AjaxResponse").html(responseText);
+					}
+			});		
+				
+			
+    }
+    
+    function CallOM()
+    {
+    	$.ajax({
+			url:'SendToOMServlet',
 			success:function(responseText){
 				$("#AjaxResponse").html(responseText);
 					}
@@ -63,24 +87,24 @@
         <div class="col-md-12" >
           <div id='content' >
             <div id='SearchWrapper'>
-              <form action ="DataServlet" method = "POST">
+              <form action ="DataServlet">
                 <div class="col-xs-12 col-md-3">
                   <input type="button" id="collRefresh" value="Refresh" class="button" onclick="RefreshCall()" style="width: 80%; margin: 10px; margin-left:0px;"/>
                 </div>
                </form>
-               <form action ="DataServlet" method = "POST">
+               <form action ="DataServlet" >
                 <div class="col-xs-12 col-md-3">
-                  <input type="button" id="collRefresh" value="Display Bill Details" class="button" onclick="Call()" style="width: 80%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" id="collRefresh" value="Display Bill Details" class="button" onclick="CallBill()" style="width: 80%; margin: 10px; margin-left:0px;"/>
                 </div>
                </form>
                <form action="DlqList.jsp" method="POST">
                 <div class="col-xs-12 col-md-3">
-                  <input type="button" id="collUpdateDel" value="Show Delinquent Customers" class="button" onclick="Call1()"style="width: 80%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" id="collUpdateDel" value="Show Delinquent Customers" class="button" onclick="CallDlq()"style="width: 80%; margin: 10px; margin-left:0px;"/>
                 </div>
                </form>
                <form action ="SendToOMServlet" method = "POST"> 
                 <div class="col-xs-12 col-md-3">
-                  <input type="submit" name = "collSendOM" id="collSendOM" value="Send to OM" class="button" onclick="RefreshCall()"style="width: 80%; margin: 10px; margin-left:0px;"/>
+                  <input type="button" name = "collSendOM" id="collSendOM" value="Send to OM" class="button" onclick="CallOM()"style="width: 80%; margin: 10px; margin-left:0px;"/>
                 </div>          
               </form> 
                        
