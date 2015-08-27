@@ -20,7 +20,17 @@ th, td {
     padding: 15px;
 }
 </style>
-
+<script>
+function Call()
+{
+$(function(){
+	$(document).on("click","#check",function(){
+		alert(this.name);
+		window.open('ViewLetter.jsp'+'?accountnumber='+this.name);
+	});
+});
+}
+</script>
 </head>
 <body>
 <%
@@ -37,7 +47,7 @@ Statement st=con.createStatement();
 ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.streetname,f.zipcode,f.city,"
                                +"f.state,f.country,f.contactnumber,"
                               +"(sysdate-d.days_elapsed) as duedate,d.days_elapsed,"
-                              +"d.due_amount,d.status,d.flag"
+                              +"d.due_amount,d.status,d.flag,d.letter_count"
                               +" from dlqtable d, fincustomerdata f WHERE d.account_number= f.customerid and d.days_elapsed=21 ");
 %>
 
@@ -61,7 +71,8 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<tr>
 
 <% while(rs.next()) //loop through theresult
-{%>
+{ int letterCount=rs.getInt(15);
+	int daysElapsed=rs.getInt(11);%>
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
 	<td><%= rs.getString(3) %></td>
@@ -76,14 +87,30 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<td><%= rs.getFloat(12) %></td>
 	<td><%= rs.getString(13) %></td>
 	<td><%= rs.getInt(14) %></td>
+	<!-- Column Condition -->
+	<%if(letterCount==0 && daysElapsed==21 ) {%>
 	<td>		
 	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<input type="submit" value="Send Letter"/>
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="Call()" disabled/>
 	</form>
 	</td>
 	</tr>
-<%}
+	<% } else if(letterCount==1 && daysElapsed==21) {%>
+	<td>		
+	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="submit" value="Send Letter" disabled/>
+	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="Call()"/>
+	</form>
+	</td>
+	</tr>
+	<%}
+	
+	}
 } catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();

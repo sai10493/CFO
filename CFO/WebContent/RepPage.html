@@ -22,7 +22,7 @@
 	$(document).ready(function() {
     if(location.hash) {
         $('a[href=' + location.hash + ']').tab('show');
-        alert(location.hash+"sent")
+        //alert(location.hash+"sent")
     }
     $(document.body).on("click", "a[data-toggle]", function(event) {
         location.hash = this.getAttribute("href");
@@ -54,18 +54,23 @@ $(document).ready(function() {
 
 	<!-- list of tabs used -->
 	<div class="container">
-	<header class="header dark-bg">
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
-            </div>
-            <div class="row">
-              <div class="span12">
-                <a href="http://localhost:8080/RepLogic/RepPage.html" class="logo"> <span class="lite"><img alt="http://localhost:8080/RepLogic/RepPage.html" src="img/t15.jpg"></span></a>
-              </div>
-            </div>
-            <!--logo end-->                   
-    </header>
-	     <h2>Delinquent Customer List</h2>
+		<header class="header dark-bg">
+			<div class="toggle-nav">
+				<div class="icon-reorder tooltips"
+					data-original-title="Toggle Navigation" data-placement="bottom"></div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<a href="http://localhost:8080/RepLogic/RepPage.html" class="logo">
+						<span class="lite"><img
+							alt="http://localhost:8080/RepLogic/RepPage.html"
+							src="img/t15.jpg"></span>
+					</a>
+				</div>
+			</div>
+			<!--logo end-->
+		</header>
+		<h2>Delinquent Customer List</h2>
 		<ul class="nav nav-tabs" id="myTab">
 			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 			<li><a data-toggle="tab" href="#menu1">eMail</a></li>
@@ -78,13 +83,15 @@ $(document).ready(function() {
 			<!-- Start of Tab1 -->
 			<div id="home" class="tab-pane fade in active">
 				<h3>HOME</h3>
-				
+
 				<form action="">
-				<center>Enter Account number<input type="text" id="search" name="search"/>
-				<input type="button" value="search" onclick="Click()"/></center>
+					<center>
+						Enter Account number<input type="text" id="search" name="search" />
+						<input type="button" value="search" onclick="Click()" />
+					</center>
 				</form>
 				<div id="ajaxGetUserServletResponse"></div>
-				
+
 			</div>
 			<!-- End of Tab1 -->
 

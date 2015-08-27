@@ -24,6 +24,7 @@ public class SendEmail extends HttpServlet {
 
 	Connection con;
 	String status;
+	int email_count;
 
 	public SendEmail() {
 		super();
@@ -42,7 +43,7 @@ public class SendEmail extends HttpServlet {
 
 		try {
 			PreparedStatement ps = con
-					.prepareStatement("SELECT (sysdate-days_elapsed), due_amount, status FROM dlqtable WHERE ACCOUNT_NUMBER=?");
+					.prepareStatement("SELECT (sysdate-days_elapsed), due_amount, status, email_count FROM dlqtable WHERE ACCOUNT_NUMBER=?");
 			ps.setString(1, accNo);
 
 			ResultSet rs = ps.executeQuery();
@@ -50,8 +51,10 @@ public class SendEmail extends HttpServlet {
 				status = rs.getString(3);
 				dueAmount = rs.getInt(2);
 				dueDate = rs.getDate(1);
+				email_count=rs.getInt(4);
 
 			}
+			email_count++;
 
 			ps = con.prepareStatement("select email, firstname from fincustomerdata where customerid = ?");
 			ps.setString(1, accNo);
@@ -59,9 +62,9 @@ public class SendEmail extends HttpServlet {
 			while (rs2.next()) {
 				emailId = rs2.getString(1);
 				firstname = rs2.getString(2);
-				email = "From: rep@twentyfifteen.com\nTo: "+emailId+"\nSubject: Bill Pay Reminder\nDear "+firstname
-						+", \n   Your Account Number: "+accNo+" has a bill due amount of "+dueAmount+" with Due Date: "+dueDate
-						+".\nKindly pay the bill.\nThank you,\nTwentyFifteen Corporation.";
+				email = "From: rep@twentyfifteen.com<br/>To: "+emailId+"<br/>Subject: Bill Pay Reminder<br/>Dear "+firstname
+						+", <br>  Your Account Number: "+accNo+" has a bill due amount of "+dueAmount+" with Due Date: "+dueDate
+						+".<br>Kindly pay the bill.<br>Thank you,<br>TwentyFifteen Corporation.";
 			}
 			ps.close();
 
@@ -80,9 +83,10 @@ public class SendEmail extends HttpServlet {
 			
 			ps1.executeQuery();
 
-			HttpSession session = request.getSession();
-			session.setAttribute("message", "message");
-
+			ps1=con.prepareStatement("UPDATE dlqtable SET email_count=? WHERE account_number=?");
+			ps1.setInt(1, email_count);
+			ps1.setString(2, accNo);
+			ps1.executeQuery();
 			response.sendRedirect("http://localhost:8080/CFO/RepPage.html#menu1");
 
 		} catch (SQLException e) {
