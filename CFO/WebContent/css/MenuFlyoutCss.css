@@ -3,6 +3,10 @@
 
 /* Starter CSS for Flyout Menu */
 
+* {
+    box-sizing: border-box;
+}
+
 body {
   background: #fff;  /*bg url(http://jsrun.it/assets/p/r/8/X/pr8Xi.png) 1a1a1a 434240  #f8f2e0*/
   color: #da031c;  
@@ -38,6 +42,9 @@ body {
   cursor: default;
 }
 
+#cssmenu{
+  margin-bottom: 2%;
+}
 
 #cssmenu ul li:hover > ul {
   visibility: visible;
@@ -49,8 +56,7 @@ body {
 /* Custom CSS Styles */
 #cssmenu {
   font-family: 'Lato', sans-serif;
-  font-size: 18px;  
-  width: 100%;
+  font-size: 18px;    
 }
 #cssmenu ul a,
 #cssmenu ul a:link,
@@ -66,11 +72,16 @@ body {
 }
 
 #cssmenu > ul > li {
-  border-left: 3px solid #000;
-  border-bottom: 1px solid #136899;
+  border-left: 3px solid #000; /*#136899*/
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
   
   /*
   d7d8da #34495e*/
+}
+
+#cssmenu ul li:first-child{
+  border-top: 1px solid #000;
 }
 #cssmenu > ul > li > a {
   padding-top: 20px;
@@ -98,8 +109,7 @@ body,html
 
 .menu {   
   position: relative;
-  width: 100%;
-  top: 150px;
+  top: 50px;
   float:left;
 }
 
@@ -108,10 +118,11 @@ body,html
   width: 100%;
   position: relative;
   background: #e8e8e8; 
-  top: 150px;
+  top: 50px;
   height: 60%;
   font-size: 50px;
   text-align: center;
+  padding: 10px;
 }
 
 
@@ -251,7 +262,11 @@ form input[type=password] {
 }
 
 .container {  
-  padding-top: 18%;
+  padding-left: 0px; 
+  padding-right:0px; 
+  margin-left: 20px; 
+  margin-right: 20px;
+  width:95%;
 }
 
 #SearchWrapper{
@@ -259,14 +274,32 @@ form input[type=password] {
   float:left;  
   position: relative;
   background: #e8e8e8; 
-  top: 10px;
+  /*top: 10px;*/
   height: 5%;
   font-size: 18px;
   text-align: center;  
 }
 
-.RepWrapper{
+.CheckWrapper{
   width: 100%;
+  float:left;  
+  position: relative;
+  background: #e8e8e8; 
+  /*padding: 10px;*/
+  height: 5%;
+  font-size: 18px;
+  text-align: left;  
+}
+
+.CheckWrapper input[type=checkbox]{
+  background: #fff; 
+}
+/*.CheckWrapper label{
+  background: #fff;
+}*/
+
+.RepWrapper{
+  /*width: 100%;*/
   float:left;  
   position: relative;  
   background: #e8e8e8;  
@@ -319,8 +352,45 @@ ul{
   width: 100%;
   position: relative;
   background: #e8e8e8; 
-  top: 200px;
+  top: 150px;
   height: 60%;
   font-size: 50px;
   text-align: center;
 }
+
+.CheckBoxBg{
+  background:white; 
+  margin:5px;
+  padding-top:3px;
+  padding-left: 5px;
+  }
+
+  .headerImg{
+    width: 55px;
+    height: 60px;
+    margin-left: -20px; 
+    margin-top: -15px;
+  }
+
+  .SecondHeader{
+    background: #fff; 
+    color:#000; 
+    font-size: 20px; 
+    width=100%; height:50px; 
+    display: block; 
+    top:50px; 
+    margin: 30px; 
+    margin-left: 0px; 
+    margin-right: 0px; 
+    border: 1px solid #ccc7c7; 
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position:relative;
+  }
+
+  /*.SecondHeader{
+    float: right;
+    text-align: right;
+  }
+*/

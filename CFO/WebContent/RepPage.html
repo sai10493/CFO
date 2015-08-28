@@ -16,6 +16,7 @@
 <link href="css/table.css" rel="stylesheet">
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/W3google.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 
 <!-- Script for preserving the selected tab -->
 <script>
@@ -55,22 +56,26 @@ $(document).ready(function() {
 	<!-- list of tabs used -->
 	<div class="container">
 		<header class="header dark-bg">
-			<div class="toggle-nav">
-				<div class="icon-reorder tooltips"
-					data-original-title="Toggle Navigation" data-placement="bottom"></div>
-			</div>
-			<div class="row">
-				<div class="span12">
-					<a href="http://localhost:8080/RepLogic/RepPage.html" class="logo">
-						<span class="lite"><img
-							alt="http://localhost:8080/RepLogic/RepPage.html"
-							src="img/t15.jpg"></span>
-					</a>
-				</div>
-			</div>
-			<!--logo end-->
-		</header>
-		<h2>Delinquent Customer List</h2>
+        	<div class="toggle-nav">
+          		<div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+        	</div>
+        	<div class="row">
+          		<div class="span12">
+            		<a href="index.html" class="logo"> <span class="lite"><img alt="" src="img/t15.png" style="width: 55px; height: 60px;    margin-left: -20px; 
+    margin-top: -15px;"></span></a> 
+    				 <div class="top-nav notification-row">              
+               			<div style="padding: 15px; float:right;">
+               				<b class="caret"></b>
+               				<a href="Login.html" style="color: white">Logout</a>
+               			</div>                           
+            		</div>
+          		</div>
+        	</div>
+        	<!--logo end-->                   
+      	</header>     
+      
+		<br/><br/><br/>
+		<h2>Representative page</h2>		
 		<ul class="nav nav-tabs" id="myTab">
 			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 			<li><a data-toggle="tab" href="#menu1">eMail</a></li>
@@ -83,11 +88,18 @@ $(document).ready(function() {
 			<!-- Start of Tab1 -->
 			<div id="home" class="tab-pane fade in active">
 				<h3>HOME</h3>
+				
 
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
 				<form action="">
 					<center>
-						Enter Account number<input type="text" id="search" name="search" />
-						<input type="button" value="search" onclick="Click()" />
+						<b>Enter Account number: </b> <input type="text" id="search" name="search" />
+						<input type="button" value="Search" onclick="Click()" />
 					</center>
 				</form>
 				<div id="ajaxGetUserServletResponse"></div>

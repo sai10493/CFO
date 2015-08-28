@@ -18,7 +18,7 @@ public class AddP2PHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	Connection con;
-	int p2pCount;
+	int p2pCount,day_elapsed;
 	
     public AddP2PHome() {
         super();
@@ -38,9 +38,9 @@ public class AddP2PHome extends HttpServlet {
 			
 			PreparedStatement p=con.prepareStatement("SELECT p2p_count, days_elapsed FROM dlqtable WHERE account_number=?");
 			p.setString(1, accNo);
-			
-			
 			ResultSet r=p.executeQuery();
+			
+			
 			
 			while(r.next())
 			{

@@ -338,7 +338,12 @@ ul{
 .hide {
   display: none;
 }
-
+.headerImg{
+    width: 55px;
+    height: 60px;
+    margin-left: -20px; 
+    margin-top: -15px;
+  }
 .RepWrapper a.active { 
   color: #145bec;
   background: #f6f6f6; 

@@ -22,12 +22,10 @@ public class ConnectionUtil {
 		return con;
 	}
 	
-	public static void closeConnection(){
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		con.close();
+		super.finalize();
 	}
 }

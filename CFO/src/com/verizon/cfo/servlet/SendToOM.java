@@ -22,13 +22,13 @@ public class SendToOM {
 			Connection con = ConnectionUtil.getConnection();
 
 			String query = "select account_number, flag from dlqtable";
-			System.out.println("after con");
+			//System.out.println("after con");
 			Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
-			System.out.println("before str1");
+			//System.out.println("before str1");
 
 			ResultSet rs = st.executeQuery(query);
-			System.out.println("Before while loop");
+			//System.out.println("Before while loop");
 			while (rs.next()) {
 
 				accno = rs.getInt("account_number");
@@ -52,7 +52,7 @@ public class SendToOM {
 		try {
 
 			URL targetUrl = new URL(sendURL);
-			System.out.println("inside send()" + sendURL);
+			//System.out.println("inside send()" + sendURL);
 			HttpURLConnection httpConnection = (HttpURLConnection) targetUrl
 					.openConnection();
 			httpConnection.setDoOutput(true);

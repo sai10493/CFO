@@ -18,7 +18,7 @@ public class ConnectionDao {
 		try {
 			con=ConnectionUtil.getConnection();
 			System.out.println("Connection established");
-			
+			if(paymentDate!=null){
 			ps = con.prepareStatement("insert into billreceived values(?,?,?,?,?)");
 			ps.setLong(1, accNo);
 			ps.setDate(2, new java.sql.Date(billCycleDate.getTime()));
@@ -27,6 +27,17 @@ public class ConnectionDao {
 			ps.setDate(5, new java.sql.Date(paymentDate.getTime()));
 			r =ps.executeUpdate();
 			ps.close();
+			}
+			else{
+				ps = con.prepareStatement("insert into billreceived values(?,?,?,?,?)");
+				ps.setLong(1, accNo);
+				ps.setDate(2, new java.sql.Date(billCycleDate.getTime()));
+				ps.setDouble(3, billedAmount);
+				ps.setDouble(4, amountReceived);
+				ps.setString(5, null);
+				r =ps.executeUpdate();
+				ps.close();
+				}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,17 +47,25 @@ public class ConnectionDao {
 	public void updateData(long accNo, Date billCycleDate,double billedAmount,double amountReceived, Date paymentDate){
 		try{
 		con = ConnectionUtil.getConnection();
-
+		
+        
 		ps = con.prepareStatement("update billreceived set bill_cycle_date=?, billed_amount=?, amount_received=?, payment_date=? where account_number=?");
 		
 		ps.setDate(1, new java.sql.Date(billCycleDate.getTime()));
 		ps.setDouble(2, billedAmount);
 		ps.setDouble(3, amountReceived);
-		ps.setDate(4, new java.sql.Date(paymentDate.getTime()));
+		if(paymentDate!=null){
+		  ps.setDate(4, new java.sql.Date(paymentDate.getTime()));
+		}
+		else{
+			ps.setString(4, null);
+		}
+			
 		ps.setLong(5, accNo);
+		
 		r = ps.executeUpdate();
 		ps.close();
-		
+        
 	} catch (SQLException e) {
 		e.printStackTrace();
 	 }
@@ -54,7 +73,7 @@ public class ConnectionDao {
 	
 	
 	
-	public void updateDlqTable(long accNo, Date billCycleDate,double billedAmount,double amountReceived, Date paymentDate) throws ParseException, SQLException{
+	public void updateDlqTable(long accNo, Date billCycleDate,double billedAmount,double amountReceived) throws ParseException, SQLException{
 		
 		con=ConnectionUtil.getConnection();
 		PreparedStatement ps;
@@ -154,7 +173,6 @@ public class ConnectionDao {
 	} 
 	
 	public String classification(long accno,double billedAmount,double amountReceived,int daysElapsed) { 																		
-		//System.out.println("Entered update");
 		con = ConnectionUtil.getConnection();
 		String operation=" ";
 		String query = "select * from dlqtable where account_number = ?";
@@ -211,7 +229,7 @@ public class ConnectionDao {
 			ps.setLong(1, accNo);
 			ResultSet rs = ps.executeQuery();
 			s = rs.next();
-			if(rs.next()){
+			if(s){
 				return true;
 			}
 		} catch (SQLException e) {
@@ -223,18 +241,4 @@ public class ConnectionDao {
 	}
 	
 	
-	public void displayData(){
-		try {
-			con=ConnectionUtil.getConnection();
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("Select * from billreceived");
-		    s = rs.next();
-			while(rs.next()){
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

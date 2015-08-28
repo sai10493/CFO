@@ -93,7 +93,9 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 } catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
-}%>
+}
+
+%>
 
 </table>
 </body>

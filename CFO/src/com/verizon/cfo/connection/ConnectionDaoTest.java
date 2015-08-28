@@ -64,7 +64,7 @@ ConnectionDao pst;
 	if (pst.st==false)
 	{
 		//for insert	
-        pst.updateDlqTable(100904, date1, 10000, 8000, date2);
+        pst.updateDlqTable(100904, date1, 10000, 8000);
 		Assert.assertEquals(false, pst.s);	
 		
 	}
@@ -73,12 +73,12 @@ ConnectionDao pst;
 	    //for update
 	    pst.classification(100903, 10000, 8000, 10);
 	    java.util.Date date3=new java.util.Date("30-Mar-2015");
-	    pst.updateDlqTable(100903, date1, 5000, 4500, date3);
+	    pst.updateDlqTable(100903, date1, 5000, 4500);
 	    Assert.assertEquals(true, pst.s);	
 		
 	    //for delete
 	    java.util.Date date4=new java.util.Date("09-Apr-2015");
-	    pst.updateDlqTable(100903, date1, 5000, 5000, date4);
+	    pst.updateDlqTable(100903, date1, 5000, 5000);
 	    Assert.assertEquals(true, pst.s);	
 	}
 }
@@ -86,7 +86,7 @@ ConnectionDao pst;
 	@Test
 	public void testClassification() throws SQLException, ParseException {
 		java.util.Date date11=new java.util.Date("30-Mar-2015");
-		pst.updateDlqTable(100904, date11, 10000, 8000, date11);
+		pst.updateDlqTable(100904, date11, 10000, 8000);
 		pst.classification(100904, 60000, 5000 , 10);
 		Assert.assertEquals(true, pst.st);
 	}
@@ -100,12 +100,5 @@ ConnectionDao pst;
 		Assert.assertEquals(true, pst.s);
 	}
 
-	@Test
-	public void testDisplayData() {
-		java.util.Date date7=new java.util.Date("09-Apr-2015");
-		pst.insertData(100003,date7, 5000,4500,date7);
-		pst.displayData();
-	    Assert.assertEquals(true, pst.s);
-	}
-
+	
 }

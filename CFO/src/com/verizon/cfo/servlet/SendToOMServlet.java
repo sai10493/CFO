@@ -25,7 +25,7 @@ public class SendToOMServlet extends HttpServlet {
 		
 		//if(request.getParameter("collSendOM")!=null){
 			SendToOM.sendToOM();
-			System.out.println("Success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			//System.out.println("Success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			response.setContentType("text/html");
 			   PrintWriter out = response.getWriter();
 			  

@@ -67,7 +67,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<th>Due Amount</th>
 	<th>Status</th>
 	<th>Flag</th>
-	<th>Action</th></tr>
+	<th width="20%">Action</th></tr>
 	<tr>
 
 <% while(rs.next()) //loop through theresult
