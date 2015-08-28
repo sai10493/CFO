@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConnectionDao {
+	//ConnectionDAO
 	Connection con;
 	int r=0;
 	boolean s,st;
