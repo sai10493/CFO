@@ -62,7 +62,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
-	<th>Flag</th>
+	<th>Live</th>
 	<th>Promise Days</th>
 	<th>Email Id</th>
 	<th width="15%">Action</th></tr>
@@ -71,7 +71,8 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 <% while(rs.next()) //loop through theresult
 { 
 	int emailCount=rs.getInt(11);
-	int daysElapsed=rs.getInt(5);%>
+	int daysElapsed=rs.getInt(5);
+	int live=rs.getInt(8);%>
 	
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
@@ -80,7 +81,11 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td><%= rs.getInt(5) %></td>
 	<td><%= rs.getInt(6) %></td>
 	<td><%= rs.getString(7) %></td>
-	<td><%= rs.getInt(8) %></td>
+	<%if(live==1){ %>
+	<td>Yes</td>
+	<%}else{ %>
+	<td>No</td>
+    <%} %>
 	<td><%= rs.getInt(9) %></td>
 	<td><%= rs.getString(10) %></td>
 	<!-- Column Condition -->

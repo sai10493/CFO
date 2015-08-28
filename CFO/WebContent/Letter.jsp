@@ -25,7 +25,7 @@ function Call()
 {
 $(function(){
 	$(document).on("click","#check",function(){
-		alert(this.name);
+		
 		window.open('ViewLetter.jsp'+'?accountnumber='+this.name);
 	});
 });
@@ -66,13 +66,14 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
-	<th>Flag</th>
+	<th>Live</th>
 	<th width="20%">Action</th></tr>
 	<tr>
 
 <% while(rs.next()) //loop through theresult
 { int letterCount=rs.getInt(15);
-	int daysElapsed=rs.getInt(11);%>
+	int daysElapsed=rs.getInt(11);
+	int live=rs.getInt(14);%>
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
 	<td><%= rs.getString(3) %></td>
@@ -86,9 +87,12 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<td><%= rs.getInt(11) %></td>
 	<td><%= rs.getFloat(12) %></td>
 	<td><%= rs.getString(13) %></td>
-	<td><%= rs.getInt(14) %></td>
+	<%if(live==1){ %>
+	<td>Yes</td>
+	<%}else{ %>
+	<td>No</td>
 	<!-- Column Condition -->
-	<%if(letterCount==0 && daysElapsed==21 ) {%>
+	<%}if(letterCount==0 && daysElapsed==21 ) {%>
 	<td>		
 	<form id="formsub" action="SendLetter" method="get"> <!-- form to take the accountNumber to the servlet -->
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>

@@ -50,7 +50,7 @@ public class SendLetter extends HttpServlet {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				status=rs.getString(5);//fetching the status of the customer
+				status=rs.getString(4);//fetching the status of the customer
 				letter_count=rs.getInt(9);
 			}
 			letter_count++;

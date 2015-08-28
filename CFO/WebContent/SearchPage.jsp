@@ -132,7 +132,7 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	<th>Action Type</th>
 	<th>Description</th>
 	</tr>
-	<% }ps=con.prepareStatement("select * from action_taken where account_number=?");
+	<% }ps=con.prepareStatement("select * from action_taken where account_number=? order by action_date desc");
 	   ps.setString(1,request.getParameter("search"));
 	   rs=ps.executeQuery();
 	   

@@ -49,7 +49,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<th>Days Elapsed</th>
 	<th>Due Amount</th>
 	<th>Status</th>
-	<th>Flag</th>
+	<th>Live</th>
 	<th>Promise Days</th>
 	<th>Phone number</th>
 	<th>Action</th>
@@ -60,7 +60,8 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 <% while(rs.next())
 {int p2pCount=rs.getInt(11);
 int p2p_days=rs.getInt(9);
-int days_elapsed=rs.getInt(5);%>
+int days_elapsed=rs.getInt(5);
+int live=rs.getInt(8);%>
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
 	<td><%= rs.getString(3) %></td>
@@ -68,8 +69,11 @@ int days_elapsed=rs.getInt(5);%>
 	<td><%= rs.getInt(5) %></td>
 	<td><%= rs.getInt(6) %></td>
 	<td><%= rs.getString(7) %></td>
-	<td><%= rs.getInt(8) %></td>
-	<%if((rs.getInt(9)-rs.getInt(5)) < 0){%>
+	<%if(live==1){ %>
+	<td>Yes</td>
+	<%}else{ %>
+	<td>No</td>
+	<%}if((rs.getInt(9)-rs.getInt(5)) < 0){%>
 	<td><%= 0 %></td>
 	<% }
 	else {%><td><%= (rs.getInt(9)-rs.getInt(5)) %></td><% ;}%>

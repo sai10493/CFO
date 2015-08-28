@@ -12,7 +12,7 @@ import com.verizon.cfo.connection.ConnectionUtil;
 
 public class SendToOM {
 
-	private static final String targetURL = "http://192.168.1.16:8081/FinanceCollection/rest/ReceiveJson/omurl/";
+	private static final String targetURL = "http://192.168.1.19:8080/OrderManagement/rest/om/financeConnectionStatus/";
 
 	public static void sendToOM() {
 
@@ -35,7 +35,7 @@ public class SendToOM {
 				live = rs.getInt("flag");
 				if (live == 0) {
 
-					String sendURL = targetURL + accno + "&" + live;
+					String sendURL = targetURL + accno + "/" + live;
 					send(sendURL);
 				}
 
