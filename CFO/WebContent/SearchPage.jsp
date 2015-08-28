@@ -42,14 +42,15 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
                                            +"d.due_amount,d.status,d.flag from dlqtable d, fincustomerdata f"
                                            +" WHERE d.account_number= f.customerid and d.account_number=?");
 		ps.setString(1,request.getParameter("search"));
-		int p2p_days=0,days_elapsed=0;
-		PreparedStatement ps1 = con.prepareStatement("select p2p_days from dlqtable where account_number=?");
+		int p2p_days=0,days_elapsed=0,p2p_count=0;
+		PreparedStatement ps1 = con.prepareStatement("select p2p_days,p2p_count from dlqtable where account_number=?");
 		ps1.setString(1,request.getParameter("search"));
 		
 		ResultSet rs=ps.executeQuery();
 		ResultSet rs1=ps1.executeQuery();
 		while(rs1.next()){
 			p2p_days=rs1.getInt(1);
+			p2p_count=rs1.getInt(2);
 		}
 		if(!rs.isBeforeFirst()){
 			out.println("<br><br><div><center>Record not found</center></div>");
@@ -102,9 +103,19 @@ PreparedStatement ps=con.prepareStatement("select d.account_number,f.firstname,f
 	<form id="form2" action="AddP2PHome" method="get">
 	<center><input type="text" name="p2p">
 	<input type="hidden" id="accountNumber" name="accountNumber" value="<%=request.getParameter("search")%>"/>
-	<input type="submit" value="Add P2P" disabled/>  <b>P2P limit exceeded!</b> </center>
+	<input type="submit" value="Add P2P" disabled/>  <b>Currently in p2p</b> </center>
     </form>
-    <% }else{%>
+    <% }else if(p2p_count>=2){%>
+	<br/>
+	<br/>
+	<form id="form2" action="AddP2PHome" method="get">
+	<center><input type="text" name="p2p">
+	<input type="hidden" id="accountNumber" name="accountNumber" value="<%=request.getParameter("search")%>"/>
+	<input type="submit" value="Add P2P" disabled/>  <b>P2P limit exceeded</b></center>
+    </form>
+    <br>
+    <br>
+    <%} else{ %>
 	<br/>
 	<br/>
 	<form id="form2" action="AddP2PHome" method="get">

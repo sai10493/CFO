@@ -58,7 +58,9 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	
 
 <% while(rs.next())
-{int p2pCount=rs.getInt(11);%>
+{int p2pCount=rs.getInt(11);
+int p2p_days=rs.getInt(9);
+int days_elapsed=rs.getInt(5);%>
 	<td><%= rs.getInt(1) %></td>
 	<td><%= rs.getString(2) %></td>
 	<td><%= rs.getString(3) %></td>
@@ -67,7 +69,10 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<td><%= rs.getInt(6) %></td>
 	<td><%= rs.getString(7) %></td>
 	<td><%= rs.getInt(8) %></td>
-	<td><%= (rs.getInt(9)-rs.getInt(5)) %></td>
+	<%if((rs.getInt(9)-rs.getInt(5)) < 0){%>
+	<td><%= 0 %></td>
+	<% }
+	else {%><td><%= (rs.getInt(9)-rs.getInt(5)) %></td><% ;}%>
 	<td><%= rs.getLong(10) %></td>
 
 	<td>
@@ -77,17 +82,21 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,(sy
 	<center><input type="submit" value="Make Call"/></center>
 	</form>
 	</td>
-	<%if(p2pCount<2){ %>
-	<td>
+	<%if(p2p_days>days_elapsed){ %>
+	<td>Currently in p2p</td>
+	<%}
+	else if(p2pCount<2)
+		{
+		%><td>
 	<form id="form2" action="AddP2P" method="get">
 	<input type="text" name="p2p">
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<center><input type="submit" value="Add P2P"/></center>
-	</form></td><%}
-	else
-		{
-		%><td>p2p limit exceeded</td><%
-		}%></tr>
+	</form></td><%
+		}else { %>
+	<td>P2P limit exceeded</td>
+	<%} %>
+	</tr>
 <%}
 
 } catch (SQLException e) {

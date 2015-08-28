@@ -26,7 +26,7 @@ function Call()
 {
 $(function(){
 	$(document).on("click","#check",function(){
-		alert(this.name);
+		
 		window.open('ViewMail.jsp'+'?accountnumber='+this.name);
 	});
 });

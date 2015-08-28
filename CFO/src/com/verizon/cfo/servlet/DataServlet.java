@@ -32,7 +32,7 @@ public class DataServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url= "http://192.168.1.42:8080/BillingSystem/rest/finance";             
+		String url= "http://www.json-generator.com/api/json/get/conPFDStKa?indent=2";             
 		JSONObject jsonObj=null;
 		JsonReader jr = new JsonReader();
 		JSONArray jsonArr;
