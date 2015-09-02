@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+//random
 public class ConnectionDao {
 	//ConnectionDAO
 	Connection con;
