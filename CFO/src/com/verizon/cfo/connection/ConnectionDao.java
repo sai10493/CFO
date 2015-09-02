@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+//needed for commit
 public class ConnectionDao {
 	//ConnectionDAO
 	Connection con;
