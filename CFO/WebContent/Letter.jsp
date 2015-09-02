@@ -21,7 +21,7 @@ th, td {
 }
 </style>
 <script>
-function Call()
+function letterView()
 {
 $(function(){
 	$(document).on("click","#check",function(){
@@ -98,7 +98,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<input type="submit" value="Send Letter"/>
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="Call()" disabled/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="letterView()" disabled/>
 	</form>
 	</td>
 	</tr>
@@ -108,7 +108,7 @@ ResultSet rs=st.executeQuery("select d.account_number,f.firstname,f.lastname,f.s
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
 	<input type="submit" value="Send Letter" disabled/>
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="Call()"/>
+	<input type="button" name="<%=rs.getInt(1) %>" id="check" value="View Letter" onclick="letterView()"/>
 	</form>
 	</td>
 	</tr>

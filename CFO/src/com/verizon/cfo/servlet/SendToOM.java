@@ -12,7 +12,7 @@ import com.verizon.cfo.connection.ConnectionUtil;
 
 public class SendToOM {
 
-	private static final String targetURL = "http://192.168.1.19:8080/OrderManagement/rest/om/financeConnectionStatus/";
+	private static final String targetURL = "http://localhost:8080/OrderManagement/rest/om/financeConnectionStatus/";
 
 	public static void sendToOM() {
 
