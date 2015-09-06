@@ -83,7 +83,7 @@ int live=rs.getInt(8);%>
 	<form id="formsub" action="MakeCall" method="get">
 	<input type="text" name="description"/>
 	<input type="hidden" id="accountNumber" name="accountNumber" value='<%=rs.getInt(1) %>'/>
-	<center><input type="submit" value="Make Call"/></center>
+	<center><input type="submit" value="Submit"/></center>
 	</form>
 	</td>
 	<%if(p2p_days>days_elapsed){ %>
