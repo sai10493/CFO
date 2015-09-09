@@ -12,7 +12,7 @@ public class ConnectionUtil {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			if(con==null){
-				con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","CFO","finance");
+				con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","finance","cfo123");
 				return con;
 			}
 		} catch (ClassNotFoundException | SQLException e) {

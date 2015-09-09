@@ -43,8 +43,8 @@ public class DataServlet extends HttpServlet {
 		   for(int i=0;i<jsonArr.length();i++){
 			   long accNo = jsonArr.getJSONObject(i).getJSONObject("accountNumber").getInt("num");
 			   String bcd = jsonArr.getJSONObject(i).getJSONObject("billCycleDate").getString("value");;
-			   double billedAmount = jsonArr.getJSONObject(i).getJSONObject("billedAmount").getInt("num");
-			   double amountReceived = jsonArr.getJSONObject(i).getJSONObject("amountReceived").getInt("num");
+			   double billedAmount = jsonArr.getJSONObject(i).getJSONObject("billedAmount").getDouble("bigDecimal");
+			   double amountReceived = jsonArr.getJSONObject(i).getJSONObject("amountReceived").getDouble("bigDecimal");
 			   String pd = jsonArr.getJSONObject(i).getJSONObject("paymentDate").getString("value");
 			   
 			   Date billCycleDate = new SimpleDateFormat("dd/MMM/yyyy").parse(bcd);
