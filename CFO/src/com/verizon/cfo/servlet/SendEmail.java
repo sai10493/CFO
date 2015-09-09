@@ -82,6 +82,11 @@ public class SendEmail extends HttpServlet {
 			ps1.setString(5, email);
 			
 			ps1.executeQuery();
+			
+			
+			
+			EmailerClass ec=new EmailerClass(emailId);
+			ec.send(email);
 
 			ps1=con.prepareStatement("UPDATE dlqtable SET email_count=? WHERE account_number=?");
 			ps1.setInt(1, email_count);
